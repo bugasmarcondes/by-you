@@ -8,7 +8,33 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    @RenderBody()
+    <div id="wrapper">
+        <div id="content">
+            <div id="header">
+                <h1><img src="//sso.byyou.com/images/logo-conecta.png" /></h1>
+                <span><img src="//sso.byyou.com/images/logo-estacio.png" /></span>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div id="principal">
+                @RenderBody()
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="footer">
+                <div class="disclaimer">
+                    TODOS OS DIREITOS RESERVADOS
+                </div>
+
+                <span class="logo_totvs">
+                    <a href="//www.totvs.com/" target="_blank"><img src="//sso.byyou.com/images/logo-by-you.png" border="0"></a>
+                    <a href="//www.totvs.com/" target="_blank"><img src="//sso.byyou.com/images/logo-totvs.png" border="0"></a>
+                </span>
+            </div>
+        </div>
+    </div>
 
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
