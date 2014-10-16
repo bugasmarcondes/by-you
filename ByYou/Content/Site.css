@@ -1,8 +1,16 @@
-﻿body {
+﻿* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
     font-size: .85em;
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
     color: #232323;
-    background-color: #fff;
+    background: #d8e1e7 url(//sso.byyou.com/images/bg-conecta.jpg) repeat-x 0 0;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 header, footer, nav, section {
@@ -40,6 +48,7 @@ textarea {
 -----------------------------------------------------------*/
 .field-validation-error {
     color: #f00;
+    display: block;
 }
 
 .field-validation-valid {
@@ -64,22 +73,9 @@ textarea {
 /* Styles from Conecta
 -----------------------------------------------------------*/
 
-* {
-    margin: 0;
-    padding: 0;
-}
-
 .clearfix {
     clear: both;
 }
-
-body {
-    background: #d8e1e7 url(//sso.byyou.com/images/bg-conecta.jpg) repeat-x 0 0;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
 
 #wrapper {
     width: 980px;
@@ -105,23 +101,6 @@ body {
 
 #principal {
     margin-top: 70px;
-}
-
-a#guia {
-    width: 365px;
-    height: 38px;
-    display: block;
-    margin-top: 90px;
-}
-
-a#banner-conecta {
-    display: block;
-    width: 500px;
-    height: 80px;
-    margin-top: 85px;
-}
-
-.login {
     padding: 20px;
     background-color: #FAFAFA;
     border: 1px solid #acbcc6;
@@ -137,6 +116,7 @@ h3 {
     font-size: 13px;
     font-weight: bold;
     margin: 20px 0 5px;
+    color: #555;
 }
 
 .text {
@@ -174,23 +154,9 @@ h3 {
     border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
 }
 
-    .button:hover {
-        background-color: #2c6081;
-        background-image: -moz-linear-gradient(center top, #3185CA, #2c6081);
-        background-image: linear-gradient(center top, #3185CA, #2c6081);
-    }
-
-    .button:active {
-        background-color: #003399 \9;
-    }
-
 p {
     margin: 10px 0;
     font-size: 13px;
-}
-
-label {
-    color: #555;
 }
 
 .checkbox {
@@ -210,9 +176,9 @@ label {
     margin: 10px 0 0;
 }
 
-    .link:hover {
-        text-decoration: none;
-    }
+.link:hover {
+    text-decoration: none;
+}
 
 .footer {
     margin: 30px 0 0;
@@ -220,16 +186,8 @@ label {
     border-top: 1px solid #a8becd;
 }
 
-.languages {
-    float: left;
-}
-
 .logo_totvs {
     float: right;
-}
-
-.language {
-    cursor: pointer;
 }
 
 .disclaimer {
@@ -239,15 +197,6 @@ label {
     width: 825px;
     color: #3f7294;
 }
-
-.footer_link {
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-    .footer_link:hover {
-        text-decoration: none;
-    }
 
 .byyou_errors {
     font-size: 12px;

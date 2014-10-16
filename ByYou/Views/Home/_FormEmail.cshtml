@@ -1,0 +1,23 @@
+﻿@model ByYou.Models.UsuarioConvite
+
+@using (Ajax.BeginForm("EnviaConvite", new AjaxOptions { UpdateTargetId = "resultado" }))
+{
+    <h3>Faça seu login!</h3>
+    @Html.LabelFor(x => x.Cpf, new { @class = "label" })
+    if (ViewBag.Cpf != null)
+    {
+        @Html.TextBoxFor(x => x.Cpf, new { Value = ViewBag.Cpf, @class = "text" })
+    }
+    else
+    {
+        @Html.TextBoxFor(x => x.Cpf, new { @class = "text" })
+    }
+    @Html.ValidationMessageFor(x => x.Cpf)
+    @Html.LabelFor(x => x.Email, new { @class = "label" })
+    @Html.TextBoxFor(x => x.Email, new { @class = "text" })
+    @Html.ValidationMessageFor(x => x.Email)
+    
+    <div class="clearfix"></div>
+    
+    <input class="button" type="submit" value="Enviar" />
+}
