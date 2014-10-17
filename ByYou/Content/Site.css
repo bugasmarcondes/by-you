@@ -49,6 +49,7 @@ textarea {
 .field-validation-error {
     color: #f00;
     display: block;
+    margin: 5px 0 0 0;
 }
 
 .field-validation-valid {
@@ -58,6 +59,11 @@ textarea {
 .input-validation-error {
     border: 1px solid #f00;
     background-color: #fee;
+}
+
+.validation-summary {
+    clear: both;
+    margin: 15px 0 0 0;
 }
 
 .validation-summary-errors {

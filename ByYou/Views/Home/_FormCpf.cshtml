@@ -1,9 +1,15 @@
-﻿<form id="verificaCpf" action="@Url.Action("VerificaCpf", "Home")" method="POST">
-    <h3>Faça seu login!</h3>
-    <label for="cpf" class="label">CPF</label>
-    <input id="cpf" name="cpf" class="text" type="text" />
-    
-    <div class="clearfix"></div>
+﻿@model ByYou.Models.UsuarioCpf
 
-    <input class="button" value="submit" type="button" />
+<form id="verificaCpf" action="@Url.Action("VerificaCpf", "Home")" method="POST">
+    <h3>Faça seu login!</h3>
+    
+    @Html.LabelFor(x => x.Cpf, htmlAttributes: new { @class = "label" })
+    @Html.TextBoxFor(x => x.Cpf, htmlAttributes: new { @class = "text" })
+    @Html.ValidationMessageFor(x => x.Cpf, "", new { @class = "text-danger" })
+
+    <div class="validation-summary">
+        @Html.ValidationMessage("error")
+    </div>
+
+    <input class="button" value="Validar" type="submit" />
 </form>

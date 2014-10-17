@@ -3,19 +3,20 @@
 @using (Ajax.BeginForm("EnviaConvite", new AjaxOptions { UpdateTargetId = "resultado" }))
 {
     <h3>Faça seu login!</h3>
-    @Html.LabelFor(x => x.Cpf, new { @class = "label" })
+    @Html.LabelFor(x => x.Cpf, htmlAttributes: new { @class = "label" })
     if (ViewBag.Cpf != null)
     {
-        @Html.TextBoxFor(x => x.Cpf, new { Value = ViewBag.Cpf, @class = "text" })
+        @Html.TextBoxFor(x => x.Cpf, htmlAttributes: new { Value = ViewBag.Cpf, @class = "text" })
     }
     else
     {
-        @Html.TextBoxFor(x => x.Cpf, new { @class = "text" })
+        @Html.TextBoxFor(x => x.Cpf, htmlAttributes: new { @class = "text" })
     }
-    @Html.ValidationMessageFor(x => x.Cpf)
-    @Html.LabelFor(x => x.Email, new { @class = "label" })
-    @Html.TextBoxFor(x => x.Email, new { @class = "text" })
-    @Html.ValidationMessageFor(x => x.Email)
+    @Html.ValidationMessageFor(x => x.Cpf, "", new { @class = "text-danger" })
+    
+    @Html.LabelFor(x => x.Email, htmlAttributes: new { @class = "label" })
+    @Html.TextBoxFor(x => x.Email, htmlAttributes: new { @class = "text" })
+    @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger" })
     
     <div class="clearfix"></div>
     

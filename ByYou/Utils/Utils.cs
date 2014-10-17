@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Security.Policy;
 using System.Web;
+using System.Web.Providers.Entities;
+using System.Web.Security;
 using ByYou.Models;
 using Microsoft.Ajax.Utilities;
 
@@ -13,7 +15,9 @@ namespace ByYou.Utils
     {
         public static bool VerificaCpf(string cpf, string csvPath)
         {
-            var csv = File.ReadLines(csvPath)
+            try
+            {
+                var csv = File.ReadLines(csvPath)
                           .Skip(1)
                           .Where(l => l != "")
                           .Select(l => l.Split(new[] { ';' }))
@@ -24,14 +28,23 @@ namespace ByYou.Utils
                               Cpf = u[2]
                           }).ToList();
 
-            if (cpf != null && csvPath != null)
-            {
-                var userList = csv.Where(x => x.Cpf == cpf).ToList();
-
-                if (userList.Count > 0)
+                if (cpf != null && csvPath != null)
                 {
-                    return true;
+                    var userList = csv.Where(x => x.Cpf == cpf).ToList();
+
+                    if (userList.Count > 0)
+                    {
+                        return true;
+                    }
                 }
+            }
+            catch (FileNotFoundException e1)
+            {
+                throw e1;
+            }
+            catch (IOException e2)
+            {
+                throw e2;
             }
 
             return false;

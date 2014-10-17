@@ -4,15 +4,21 @@
             var form = $('#verificaCpf'),
                 action = form.attr('action');
 
-            $('#verificaCpf').on('submit', function (e) {
+            $(document).on('submit', '#verificaCpf', function (e) {
                 e.preventDefault();
 
-                $.post(action, { cpf: $('#cpf').val() }, function (data) {
+                if ($('#Cpf').val() == '') {
+                    return false;
+                }
+
+                $.post(action, { usuario: {
+                    Cpf: $('#Cpf').val()
+                } }, function (data) {
                     if (data) {
                         $('#resultado').html(data);
-                        $('#cpf').inputmask('999.999.999-99');
+                        $('#Cpf').inputmask('999.999.999-99');
                     } else {
-                        $('#resultado').html('<p>Entre em contato pelo: e-mail@estacio.com.br</p>');
+                        $('#resultado').html(data);
                     }
                 });
 
@@ -20,7 +26,7 @@
             });
         },
         init = function () {
-            $('#cpf').inputmask('999.999.999-99');
+            $('#Cpf').inputmask('999.999.999-99');
 
             verificaCpf();
         };

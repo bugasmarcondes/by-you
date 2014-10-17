@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "Estácio - Upload";
+
+    if (Session["login"] == null)
+    {
+        Response.Redirect("~/Login");
+    }
+}
+
+<div id="resultado">
+    <h3>Upload</h3>
+
+    @using (@Html.BeginForm("Index", "Upload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <label class="label">Arquivo CSV</label>
+        <input type="file" name="arquivo" id="arquivo" />
+
+        <div class="validation-summary">
+            @Html.ValidationMessage("arquivo")
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        </div>
+
+        <input type="submit" value="Upload" class="button" />
+    }
+</div>
+
+@if (ViewBag.Sucesso != null)
+{
+    <script>
+        $(function () {
+            alert("@ViewBag.Sucesso");
+        });
+    </script>
+}

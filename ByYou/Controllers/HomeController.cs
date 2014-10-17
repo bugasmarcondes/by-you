@@ -19,19 +19,27 @@ namespace ByYou.Controllers
         }
 
         [HttpPost]
-        public ActionResult VerificaCpf(string cpf)
+        public ActionResult VerificaCpf(UsuarioCpf usuario)
         {
-            var csvPath = Server.MapPath("/Content/csv/lista.csv");
-            var hasCpf = Utils.Utils.VerificaCpf(cpf, csvPath);
-
-            if (hasCpf)
+            try
             {
-                ViewBag.Cpf = cpf;
+                var csvPath = Server.MapPath("/Content/csv/lista.csv");
+                var hasCpf = Utils.Utils.VerificaCpf(usuario.Cpf, csvPath);
 
-                return PartialView("_FormEmail");
+                if (hasCpf)
+                {
+                    ViewBag.Cpf = usuario.Cpf;
+
+                    return PartialView("_FormEmail");
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("error", ex.Message);
+                return PartialView("_FormCpf");
             }
 
-            return Json(false, JsonRequestBehavior.AllowGet);
+            return Content("<p><strong>E-mail não encontrado.</strong></p><p>Por favor, entre em contato pelo: e-mail@estacio.com.br</p>");
         }
 
         [HttpPost]

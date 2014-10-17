@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Estácio - Cadastro";
 }
 
 <div id="resultado">
@@ -9,5 +9,5 @@
 @section scripts
 {
     @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/site")
+    <script src="@Url.Content("~/Scripts/valida-cpf.js")"></script>
 }
