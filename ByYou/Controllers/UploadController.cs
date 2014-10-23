@@ -41,12 +41,8 @@ namespace ByYou.Controllers
                     return View();
                 }
 
-                var filename = Path.GetFileName(arquivo.FileName);
-                if (filename != null)
-                {
-                    arquivo.SaveAs(Path.Combine(diretorio, filename));
-                    ViewBag.Sucesso = "Upload realizado com sucesso!";
-                }
+                arquivo.SaveAs(Path.Combine(diretorio, "lista.csv"));
+                ViewBag.Sucesso = "Upload realizado com sucesso!";
             }
 
             return View();
