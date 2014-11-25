@@ -15,6 +15,13 @@ namespace ByYou.Controllers
             return View();
         }
 
+        public ActionResult FormEmail(string cpf)
+        {
+            ViewBag.Cpf = cpf;
+
+            return PartialView("_FormEmail");
+        }
+
         [HttpPost]
         public ActionResult VerificaCpf(UsuarioCpf usuario)
         {
@@ -36,7 +43,7 @@ namespace ByYou.Controllers
                 return PartialView("_FormCpf");
             }
 
-            return Content("<p><strong>E-mail não encontrado.</strong></p><p>Por favor, entre em contato pelo: e-mail@estacio.com.br</p>");
+            return Json(false, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -44,7 +51,7 @@ namespace ByYou.Controllers
         {
             if (ModelState.IsValid)
             {
-                return Json("chamada ao servico", JsonRequestBehavior.AllowGet);
+                return Json(false, JsonRequestBehavior.AllowGet);
             }
 
             return PartialView("_FormEmail", usuario);

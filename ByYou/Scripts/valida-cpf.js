@@ -1,39 +1,131 @@
-﻿var cadastro = function (el) {
-    var resultDiv = $(el),
-        verificaCpf = function () {
-            var form = $('#verificaCpf'),
-                action = form.attr('action');
+﻿var cadastro = function () {
 
+    var _cpf = '',
+        $resultado = $('#resultado'),
+        $cpf = $('#Cpf');
+
+    //VERIFICA CPF NO ARQUIVO CSV: /Content/csv/lista.csv
+    var verifica_csv = function () {
             $(document).on('submit', '#verificaCpf', function (e) {
                 e.preventDefault();
 
-                if ($('#Cpf').val() == '') {
+                if ($cpf.val() == '') {
                     return false;
                 }
 
-                $.post(action, { usuario: {
-                    Cpf: $('#Cpf').val()
-                } }, function (data) {
-                    if (data) {
-                        $('#resultado').html(data);
-                        $('#Cpf').inputmask('999.999.999-99');
-                    } else {
-                        $('#resultado').html(data);
-                    }
-                });
+                var $form = $('#verificaCpf');
+
+                try {
+                    $.ajax({
+                        type: 'POST',
+                        url: $form.attr('action'),
+                        data: $form.serialize(),
+                        success: function (data) {
+                            if (data) {
+                                $resultado.html(data);
+                                $('#Cpf').inputmask('999.999.999-99').attr('readonly', true);
+                            } else {
+                                verifica_servico($cpf.val());
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            if (errorThrown == 'Not Found') {
+                                alert('Erro, por favor entre em contato com o administrador do sistema\n\nMensagem: Não é possível encontrar o recurso.');
+                            } else {
+                                alert('Erro, por favor entre em contato com o administrador do sistema\n\nMensagem: ' + errorThrown);
+                            }
+                        }
+                    });
+                } catch (e) {
+                    alert('Erro, por favor entre em contato com o administrador do sistema\n\nMensagem: ' + e.message);
+                }
 
                 return false;
             });
         },
-        init = function () {
-            $('#Cpf').inputmask('999.999.999-99');
+        //SE NAO ENCONTRAR O CPF NO CSV
+        //BUSCA CPF NO SERVICO DO BYYOU
+        verifica_servico = function (cpf) {
+            _cpf = cpf.replace(/[\.|-]/g, '');
 
-            verificaCpf();
+            //CHAMADA AO SERVICO
+            try {
+                $.ajax({
+                    url: 'https://www.qabyyou.com/api/rest/social/viralizacao/socialTenant/remoteDocumentVerifier?jsoncallback=cpfvalido',
+                    jsonp: false,
+                    data: {
+                        'code': 'cpf',
+                        'documentValue': _cpf
+                    },
+                    dataType: 'jsonp'
+                });
+            } catch (e) {
+                alert('Erro, por favor entre em contato com o administrador do sistema\n\nMensagem: ' + e.message);
+            }
+
+            //RETORNO DA CHAMADA AO SERVICO
+            window.cpfvalido = function (data) {
+                if (data == 'true') {
+                    $.get('/Home/FormEmail?cpf=' + _cpf, function (data) {
+                        $resultado.html(data);
+                    });
+                } else {
+                    contato();
+                }
+            }
+        },
+        //SE NAO ENCONTRAR CPF NO CSV
+        //SE NAO ENCONTRAR CPF NO SERVICO DO BYYOU
+        //INFORMA O USUARIO PARA ENTRAR EM CONTATO COM A ESTACIO
+        contato = function () {
+            $resultado.html('<p><strong>E-mail não encontrado.</strong></p><p>Por favor, entre em contato pelo: e-mail@estacio.com.br</p>');
+        },
+        //
+        envia_convite = function () {
+            $(document).on('submit', '#enviaConvite', function (e) {
+                e.preventDefault();
+
+                var $form = $('#enviaConvite');
+
+                try {
+                    $.ajax({
+                        type: 'POST',
+                        url: $form.attr('action'),
+                        data: $form.serialize(),
+                        success: function (data) {
+                            if (data) {
+                                $resultado.html(data);
+                            } else {
+                                //BUGAS: CHAMAR SERVICO BYYOU
+                                $resultado.html('chama servico');
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            if (errorThrown == 'Not Found') {
+                                alert('Erro, por favor entre em contato com o administrador do sistema\n\nMensagem: Não é possível encontrar o recurso.');
+                            } else {
+                                alert('Erro, por favor entre em contato com o administrador do sistema\n\nMensagem: ' + errorThrown);
+                            }
+                        }
+                    });
+                } catch (e) {
+                    alert('Erro, por favor entre em contato com o administrador do sistema\n\nMensagem: ' + e.message);
+                }
+
+                return false;
+            });
+        },
+        //INICIA LOGICA PARA VERIFICAR CPF E ENVIAR CONVITE
+        init = function () {
+            $cpf.inputmask('999.999.999-99');
+
+            verifica_csv();
         };
 
     return {
-        init: init
+        init: init,
+        convite: envia_convite
     };
-}('resultado');
+}();
 
 cadastro.init();
