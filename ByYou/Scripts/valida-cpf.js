@@ -80,8 +80,8 @@
         contato = function () {
             $resultado.html('<p><strong>E-mail não encontrado.</strong></p><p>Por favor, entre em contato pelo: e-mail@estacio.com.br</p>');
         },
-        //
-        envia_convite = function () {
+        //VALIDA E CHAMA SERVICO DE CONVITE DO BYYOU
+        ajax_envia_convite = function () {
             $(document).on('submit', '#enviaConvite', function (e) {
                 e.preventDefault();
 
@@ -96,8 +96,7 @@
                             if (data) {
                                 $resultado.html(data);
                             } else {
-                                //BUGAS: CHAMAR SERVICO BYYOU
-                                $resultado.html('chama servico');
+                                servico_envia_convite();
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
@@ -115,6 +114,32 @@
                 return false;
             });
         },
+        //INTEGRACAO COM O SERVICO DO BYYOU
+        servico_envia_convite = function () {
+            //CHAMADA AO SERVICO
+            try {
+                $.ajax({
+                    url: 'https://www.qabyyou.com/api/rest/social/viralizacao/socialTenant/remoteSendInvite?jsoncallback=callback_convite',
+                    jsonp: false,
+                    data: {
+                        'email': $('#Email').val(),
+                        'authorizationCode': '0124b972-ddbc-4f97-b1b4-02fa528c72fe'
+                    },
+                    dataType: 'jsonp'
+                });
+            } catch (e) {
+                alert('Erro, por favor entre em contato com o administrador do sistema\n\nMensagem: ' + e.message);
+            }
+
+            //RETORNO DA CHAMADA AO SERVICO
+            window.callback_convite = function (data) {
+                if (data.sent) {
+                    $resultado.html('<h3>Convite enviado com sucesso!</h3>');
+                } else {
+                    $resultado.html('<h3>Erro</h3><p>Por favor, entre em contato com o administrador do sistema.</p>');
+                }
+            }
+        },
         //INICIA LOGICA PARA VERIFICAR CPF E ENVIAR CONVITE
         init = function () {
             $cpf.inputmask('999.999.999-99');
@@ -124,7 +149,7 @@
 
     return {
         init: init,
-        convite: envia_convite
+        convite: ajax_envia_convite
     };
 }();
 
