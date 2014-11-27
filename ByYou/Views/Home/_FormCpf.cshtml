@@ -1,7 +1,7 @@
 ﻿@model ByYou.Models.UsuarioCpf
 
 <form id="verificaCpf" action="@Url.Action("VerificaCpf", "Home")" method="POST">
-    <h3>Faça seu login!</h3>
+    <h3>Crie seu login!</h3>
     
     @Html.LabelFor(x => x.Cpf, htmlAttributes: new { @class = "label" })
     @Html.TextBoxFor(x => x.Cpf, htmlAttributes: new { @class = "text" })

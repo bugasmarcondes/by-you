@@ -1,7 +1,7 @@
 ﻿@model ByYou.Models.UsuarioConvite
 
 <form id="enviaConvite" action="@Url.Action("EnviaConvite", "Home")" method="POST">
-    <h3>Faça seu login!</h3>
+    <h3>Crie seu login!</h3>
     @Html.LabelFor(x => x.Cpf, htmlAttributes: new { @class = "label" })
     @if (ViewBag.Cpf != null)
     {

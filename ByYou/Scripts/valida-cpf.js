@@ -51,7 +51,7 @@
             //CHAMADA AO SERVICO
             try {
                 $.ajax({
-                    url: 'https://www.qabyyou.com/api/rest/social/viralizacao/socialTenant/remoteDocumentVerifier?jsoncallback=cpfvalido',
+                    url: 'https://conecta.qabyyou.com/api/rest/social/viralizacao/socialTenant/remoteDocumentVerifier?jsoncallback=cpfvalido',
                     jsonp: false,
                     data: {
                         'code': 'cpf',
@@ -78,7 +78,7 @@
         //SE NAO ENCONTRAR CPF NO SERVICO DO BYYOU
         //INFORMA O USUARIO PARA ENTRAR EM CONTATO COM A ESTACIO
         contato = function () {
-            $resultado.html('<p><strong>E-mail não encontrado.</strong></p><p>Por favor, entre em contato pelo: e-mail@estacio.com.br</p>');
+            $resultado.html('<p><strong>E-mail não encontrado.</strong></p><p>Por favor, entre em contato pelo: conecta@estacio.br</p>');
         },
         //VALIDA E CHAMA SERVICO DE CONVITE DO BYYOU
         ajax_envia_convite = function () {
@@ -119,7 +119,7 @@
             //CHAMADA AO SERVICO
             try {
                 $.ajax({
-                    url: 'https://www.qabyyou.com/api/rest/social/viralizacao/socialTenant/remoteSendInvite?jsoncallback=callback_convite',
+                    url: 'https://conecta.qabyyou.com/api/rest/social/viralizacao/socialTenant/remoteSendInvite?jsoncallback=callback_convite',
                     jsonp: false,
                     data: {
                         'email': $('#Email').val(),
