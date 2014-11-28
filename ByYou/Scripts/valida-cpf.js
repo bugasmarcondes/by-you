@@ -78,7 +78,7 @@
         //SE NAO ENCONTRAR CPF NO SERVICO DO BYYOU
         //INFORMA O USUARIO PARA ENTRAR EM CONTATO COM A ESTACIO
         contato = function () {
-            $resultado.html('<p><strong>E-mail não encontrado.</strong></p><p>Por favor, entre em contato pelo: conecta@estacio.br</p>');
+            $resultado.html('<p><strong>CPF não encontrado.</strong></p><p>Por favor, entre em contato pelo: conecta@estacio.br</p>');
         },
         //VALIDA E CHAMA SERVICO DE CONVITE DO BYYOU
         ajax_envia_convite = function () {
