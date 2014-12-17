@@ -13,8 +13,10 @@ namespace ByYou.Utils
 {
     public class Utils
     {
-        public static bool VerificaCpf(string cpf, string csvPath)
+        public static UsuariosCsv VerificaCpf(string cpf, string csvPath)
         {
+            var usuarioCsv = new UsuariosCsv();
+
             try
             {
                 var csv = File.ReadLines(csvPath)
@@ -25,7 +27,8 @@ namespace ByYou.Utils
                           {
                               Id = u[0],
                               Nome = u[1],
-                              Cpf = u[2]
+                              Cpf = u[2],
+                              Matricula = u[3]
                           }).ToList();
 
                 if (cpf != null && csvPath != null)
@@ -34,7 +37,9 @@ namespace ByYou.Utils
 
                     if (userList.Count > 0)
                     {
-                        return true;
+                        usuarioCsv = userList.FirstOrDefault();
+
+                        return usuarioCsv;
                     }
                 }
             }
@@ -47,7 +52,7 @@ namespace ByYou.Utils
                 throw e2;
             }
 
-            return false;
+            return usuarioCsv;
         }
     }
 }

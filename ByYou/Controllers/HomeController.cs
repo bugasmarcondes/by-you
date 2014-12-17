@@ -28,11 +28,12 @@ namespace ByYou.Controllers
             try
             {
                 var csvPath = Server.MapPath("/Content/csv/lista.csv");
-                var hasCpf = Utils.Utils.VerificaCpf(usuario.Cpf, csvPath);
+                var retorno = Utils.Utils.VerificaCpf(usuario.Cpf, csvPath);
 
-                if (hasCpf)
+                if (retorno.Cpf != null)
                 {
-                    ViewBag.Cpf = usuario.Cpf;
+                    ViewBag.Cpf = retorno.Cpf;
+                    ViewBag.Matricula = retorno.Matricula;
 
                     return PartialView("_FormEmail");
                 }

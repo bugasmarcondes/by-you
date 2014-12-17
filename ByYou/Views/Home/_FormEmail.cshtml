@@ -19,6 +19,15 @@
     
     <div class="clearfix"></div>
     
+    @if (ViewBag.Matricula != null)
+    {
+        <input type="hidden" id="cd_matricula" value="@ViewBag.Matricula" />
+    }
+    else
+    {
+        <input type="hidden" id="cd_matricula" value="" />
+    }
+    
     <input class="button" type="submit" value="Enviar" />
 </form>
 

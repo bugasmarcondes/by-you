@@ -51,7 +51,7 @@
             //CHAMADA AO SERVICO
             try {
                 $.ajax({
-                    url: 'https://conecta.qabyyou.com/api/rest/social/viralizacao/socialTenant/remoteDocumentVerifier?jsoncallback=cpfvalido',
+                    url: 'https://conecta.byyou.com/api/rest/social/viralizacao/socialTenant/remoteDocumentVerifier?jsoncallback=cpfvalido',
                     jsonp: false,
                     data: {
                         'code': 'cpf',
@@ -66,9 +66,7 @@
             //RETORNO DA CHAMADA AO SERVICO
             window.cpfvalido = function (data) {
                 if (data == 'true') {
-                    $.get('/Home/FormEmail?cpf=' + _cpf, function (data) {
-                        $resultado.html(data);
-                    });
+                    $resultado.html('<p><strong>CPF já existente.</strong></p><p>Por favor, entre em contato pelo: conecta@estacio.br</p>');
                 } else {
                     contato();
                 }
@@ -119,9 +117,10 @@
             //CHAMADA AO SERVICO
             try {
                 $.ajax({
-                    url: 'https://conecta.qabyyou.com/api/rest/social/viralizacao/socialTenant/remoteSendInvite?jsoncallback=callback_convite',
+                    url: 'https://conecta.byyou.com/api/rest/social/viralizacao/socialTenant/remoteSendInvite?jsoncallback=callback_convite',
                     jsonp: false,
                     data: {
+                        'matricula': $('#cd_matricula').val(),
                         'email': $('#Email').val(),
                         'authorizationCode': '0124b972-ddbc-4f97-b1b4-02fa528c72fe'
                     },
@@ -134,7 +133,7 @@
             //RETORNO DA CHAMADA AO SERVICO
             window.callback_convite = function (data) {
                 if (data.sent) {
-                    $resultado.html('<h3>Convite enviado com sucesso!</h3>');
+                    $resultado.html('<h3>Conclusão de cadastro</h3><p>Para sua segurança, enviamos um email com título "Cadastro na rede Conecta" para a sua conta.</p>');
                 } else {
                     $resultado.html('<h3>Erro</h3><p>Por favor, entre em contato com o administrador do sistema.</p>');
                 }

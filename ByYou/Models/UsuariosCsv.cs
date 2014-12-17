@@ -10,5 +10,6 @@ namespace ByYou.Models
         public string Id { get; set; }
         public string Nome { get; set; }
         public string Cpf { get; set; }
+        public string Matricula { get; set; }
     }
 }
